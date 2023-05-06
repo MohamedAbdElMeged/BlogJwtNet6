@@ -2,10 +2,10 @@
 
 namespace BlogJwtNet6.Dtos
 {
-    public class RegisterResponse
+    public class RegisterResponse : BaseResponse
     {
-        public string? Message { get; set; }
         public Guid? Id { get; set; }
+
 
         public string? AuthToken { get; set; }
 

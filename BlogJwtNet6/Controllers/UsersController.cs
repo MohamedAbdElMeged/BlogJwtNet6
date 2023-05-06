@@ -66,5 +66,15 @@ namespace BlogJwtNet6.Controllers
             return NoContent();
 
         }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        {
+
+            var response = await _userService.Login(loginRequest);
+            return Ok(response);
+
+        }
     }
 }

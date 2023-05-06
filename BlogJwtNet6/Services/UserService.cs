@@ -2,6 +2,7 @@
 using BlogJwtNet6.Dtos;
 using BlogJwtNet6.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using ServiceStack;
 using ServiceStack.Redis;
@@ -64,6 +65,7 @@ namespace BlogJwtNet6.Services
             var response = new RegisterResponse()
             {
                 Message = "Registration Successfull",
+                Success = true,
                 Id = user.Id,
                 AuthToken = authToken,
             };
@@ -76,6 +78,45 @@ namespace BlogJwtNet6.Services
             var authToken = _httpContext.HttpContext.Items["AuthToken"].ToString();
             var expiredAuthToken = Encoding.UTF8.GetBytes(authToken);
              _redisService.GetRedisClient().LPush("expiredTokens", expiredAuthToken);
+        }
+
+        public async Task<RegisterResponse> Login(LoginRequest loginRequest)
+        {
+            var user =await  _context.Users.FirstOrDefaultAsync(u => u.Email == loginRequest.Email);
+            if (user == null)
+            {
+                return new RegisterResponse()
+                {
+                    Message = "Email not found",
+                    Success = false,
+
+                };
+
+            }
+            else
+            {
+                if(user.Password == loginRequest.Password)
+                {
+                    var authToken = _jwtService.GenerateJwtToken(user);
+                    var response = new RegisterResponse()
+                    {
+                        Message = "Registration Successfull",
+                        Success = true,
+                        Id = user.Id,
+                        AuthToken = authToken,
+                    };
+                    return response;
+                }
+                else
+                {
+                    return new RegisterResponse()
+                    {
+                        Message = "Invalid Password",
+                        Success = false,
+
+                    };
+                }
+            }
         }
     }
 }

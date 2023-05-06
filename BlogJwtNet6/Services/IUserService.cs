@@ -10,6 +10,8 @@ namespace BlogJwtNet6.Services
 
         public UserResponse GetCurrentUser();
 
+        public Task<RegisterResponse> Login(LoginRequest loginRequest);
+
         public Task Logout();
     }
 }

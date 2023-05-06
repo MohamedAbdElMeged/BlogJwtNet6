@@ -27,7 +27,8 @@ namespace BlogJwtNet6.Middlewares
             logger.LogInformation("d5l el jwt middleware");
             var swaggerPath = context.Request.Path.StartsWithSegments("/swagger");
             var registerPath = context.Request.Path.StartsWithSegments("/api/Users/register");
-            if (swaggerPath || registerPath)
+            var loginPath = context.Request.Path.StartsWithSegments("/api/Users/login");
+            if (swaggerPath || registerPath || loginPath)
             {
                 await _next(context);
             }
