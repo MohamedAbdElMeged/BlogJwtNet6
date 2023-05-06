@@ -1,8 +1,13 @@
-﻿using BlogJwtNet6.Data;
+﻿
+using BlogJwtNet6.Authorization;
+using BlogJwtNet6.Data;
 using BlogJwtNet6.Models;
 using BlogJwtNet6.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Win32;
 using System.Net;
@@ -28,7 +33,9 @@ namespace BlogJwtNet6.Middlewares
             var swaggerPath = context.Request.Path.StartsWithSegments("/swagger");
             var registerPath = context.Request.Path.StartsWithSegments("/api/Users/register");
             var loginPath = context.Request.Path.StartsWithSegments("/api/Users/login");
-            if (swaggerPath || registerPath || loginPath)
+            var endpoint = context.Features.Get<IEndpointFeature>()?.Endpoint;
+            var attribute = endpoint?.Metadata.GetMetadata<BlogAllowAnonymousAttribute>();
+            if (attribute != null )
             {
                 await _next(context);
             }

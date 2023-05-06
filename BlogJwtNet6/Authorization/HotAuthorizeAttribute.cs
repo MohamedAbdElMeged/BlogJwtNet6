@@ -10,7 +10,7 @@ namespace BlogJwtNet6.Authorization
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
+            var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<BlogAllowAnonymousAttribute>().Any();
             if (allowAnonymous)
                 return;
 

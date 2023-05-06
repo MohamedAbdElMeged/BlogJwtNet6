@@ -26,7 +26,7 @@ services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(builder.Con
 
 services.AddScoped<IJwtService,JwtService>();
 services.AddScoped<IUserService,UserService>();
-
+services.AddScoped<IPostsService, PostsService>();
 services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 

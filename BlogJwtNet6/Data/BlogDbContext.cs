@@ -10,5 +10,7 @@ namespace BlogJwtNet6.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Post> Posts { get; set; }
+
     }
 }
