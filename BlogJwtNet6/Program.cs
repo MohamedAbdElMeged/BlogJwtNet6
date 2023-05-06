@@ -9,7 +9,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -20,12 +20,13 @@ services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 
-
+services.AddScoped<IRedisService, RedisService>();
 services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-
+/*services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["RedisCacheUrl"]; });*/
 
 services.AddScoped<IJwtService,JwtService>();
 services.AddScoped<IUserService,UserService>();
+
 services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 
@@ -61,7 +62,7 @@ services.AddSwaggerGen(c => {
 services.AddHttpContextAccessor();
 
 
-var app = builder.Build();
+ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

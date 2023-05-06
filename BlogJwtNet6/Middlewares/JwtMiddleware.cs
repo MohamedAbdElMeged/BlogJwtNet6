@@ -3,8 +3,10 @@ using BlogJwtNet6.Models;
 using BlogJwtNet6.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Win32;
 using System.Net;
+using System.Text;
 
 namespace BlogJwtNet6.Middlewares
 {
@@ -19,7 +21,7 @@ namespace BlogJwtNet6.Middlewares
 
         }
         public async Task Invoke(HttpContext context, ILoggerFactory logFactory,
-            IJwtService jwtService, IUserService userService)
+            IJwtService jwtService, IUserService userService, IRedisService redisService)
         {
             var logger = logFactory.CreateLogger<JwtMiddleware>();
             logger.LogInformation("d5l el jwt middleware");
@@ -38,10 +40,22 @@ namespace BlogJwtNet6.Middlewares
                     context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     return;
                 }
+                // Check if logged out 
+                var cachedRevokedTokens = redisService.GetRedisClient().GetAllItemsFromList("expiredTokens");
+                if (cachedRevokedTokens != null)
+                {
+                    if (cachedRevokedTokens.Contains(authToken))
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        return;
+                    }
+                }
+
                 var userId =  jwtService.ValidateToken(authToken);
                 if (userId != null)
                 {
                     context.Items["User"] =  userService.GetById(userId);
+                    context.Items["AuthToken"] = authToken;
                     await _next(context);
                 }
                 else

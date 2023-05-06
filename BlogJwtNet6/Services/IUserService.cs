@@ -10,5 +10,6 @@ namespace BlogJwtNet6.Services
 
         public UserResponse GetCurrentUser();
 
+        public Task Logout();
     }
 }

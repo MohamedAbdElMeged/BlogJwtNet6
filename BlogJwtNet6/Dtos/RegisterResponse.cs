@@ -4,8 +4,10 @@ namespace BlogJwtNet6.Dtos
 {
     public class RegisterResponse
     {
-        public UserResponse User { get; set; }
-        public string AuthToken { get; set; }
+        public string? Message { get; set; }
+        public Guid? Id { get; set; }
+
+        public string? AuthToken { get; set; }
 
     }
 }

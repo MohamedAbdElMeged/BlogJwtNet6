@@ -65,3 +65,10 @@ E:\dotnet\BlogJwtNet6\BlogJwtNet6\obj\Debug\net6.0\BlogJwtNet6.pdb
 E:\dotnet\BlogJwtNet6\BlogJwtNet6\obj\Debug\net6.0\BlogJwtNet6.genruntimeconfig.cache
 E:\dotnet\BlogJwtNet6\BlogJwtNet6\obj\Debug\net6.0\ref\BlogJwtNet6.dll
 E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\Pipelines.Sockets.Unofficial.dll
+E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\StackExchange.Redis.dll
+E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\ServiceStack.Common.dll
+E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\ServiceStack.Interfaces.dll
+E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\ServiceStack.Redis.dll
+E:\dotnet\BlogJwtNet6\BlogJwtNet6\bin\Debug\net6.0\ServiceStack.Text.dll
